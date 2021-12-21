@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Enemy.h"
+#include "TimeManager.h"
 
 
 /// <summary>
@@ -21,7 +22,7 @@ void Draw();
 
 enum USER_INPUTS { NONE, UP, DOWN, RIGHT, LEFT, QUIT };
 Map pacman_map = Map();
-Enemy enemy1 = Enemy({10,5});
+Enemy enemy1 = Enemy(pacman_map.spawn_enemy);//posicion exactaa
 char player_char = 'O';
 int player_x = 1;
 int player_y = 1;
@@ -32,6 +33,8 @@ bool win = false;
 
 int main()
 {
+  /*  TimeManager::getInstance().variable = 0;
+    std::cout << TimeManager::getInstance().variable;*/
     Setup();
     while (run)
     {
@@ -139,8 +142,19 @@ void Logic()
         {
             win = true;
         }
+        Enemy::ENEMY_STATE enemy1state= enemy1.Update(&pacman_map, { (short)player_x , (short)player_y }); // un enun
 
-        enemy1.Update(&pacman_map);
+        switch (enemy1state)
+        {
+        case Enemy::ENEMY_KILLED: // mato el enemigo
+            player_points += 50;
+            break;
+        case Enemy::ENEMY_DEAD:
+            player_x = pacman_map.spawn_player.X;
+            player_y = pacman_map.spawn_player.Y;
+            break;
+        }
+      
     }
 }
 

@@ -7,6 +7,7 @@
 class Enemy
 {
 private:
+	COORD spawn;
 	COORD position;
 	COORD direction;
 	char character = 'X';
@@ -16,11 +17,12 @@ private:
 	
 
 public:
+	enum ENEMY_STATE{ENEMY_NONE,ENEMY_KILLED,ENEMY_DEAD};
 	Enemy();
 	Enemy(COORD _spawn);
 
 	void Draw();
-	void Update(Map* _map);
+	ENEMY_STATE Update(Map* _map, COORD _player);
 
 };
 

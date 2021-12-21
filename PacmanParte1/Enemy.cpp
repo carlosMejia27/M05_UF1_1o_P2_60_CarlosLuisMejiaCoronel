@@ -26,12 +26,14 @@ void Enemy::RandomDirection()
 
 Enemy::Enemy()
 {
-	position = { 10,5 };
+	spawn = { 0,0 };
+	position = spawn;
 	direction = { 0,0 };
 }
 
 Enemy::Enemy(COORD _spawn)
 {
+	spawn = _spawn;
 	position = _spawn;
 	direction = { 0,0};
 }
@@ -45,25 +47,26 @@ void Enemy::Draw()
 
 }
 
-void Enemy::Update(Map* _map)
+Enemy::ENEMY_STATE Enemy::Update(Map* _map, COORD _player)
 {
 	RandomDirection();
 	COORD newPosition = position;
 	newPosition.X += direction.X; // actualizo la posicion xy y
 	newPosition.Y += direction.Y;
 
-	/*if (newPosition.X < 0)
+	// teletransporteee
+	if (newPosition.X < 0)
 	{
 		newPosition.X = _map->Width - 1;
 	}
 	newPosition.X %= _map->Width;
 	if (newPosition.Y < 0)
 	{
-		newPosition.Y = pacman_map.Height - 1;
+		newPosition.Y = _map->Height - 1;
 	}
-	newPosition.Y %= pacman_map.Height;*/
+	newPosition.Y %= _map->Height;
 
-	switch (_map->GetTile(newPosition.X, newPosition.Y))
+	switch (_map->GetTile(newPosition.X, newPosition.Y))// que si toco un muro me haga una posicion atras
 	{
 	case Map::MAP_TILES::MAP_WALL:
 		newPosition = position;
@@ -71,5 +74,13 @@ void Enemy::Update(Map* _map)
 		break;
 		
 	}
+	ENEMY_STATE state= ENEMY_STATE::ENEMY_NONE;
 	position = newPosition;
+	if (position.X==_player.X && position.Y == _player.Y) /// hago que el fantasma aparesca al inicio
+	{
+		position = spawn;
+		state = ENEMY_STATE::ENEMY_KILLED;
+	}
+
+	return state;
 }
