@@ -134,6 +134,11 @@ void Logic()
             player_points++;
             pacman_map.SetTile(player_x_new, player_y_new, Map::MAP_TILES::MAP_EMPTY);
             break;
+        case Map::MAP_TILES::MAP_POWERUP:
+            player_points+=25;
+            enemy1.PoweUpPicked();
+            pacman_map.SetTile(player_x_new, player_y_new, Map::MAP_TILES::MAP_EMPTY);
+            break;
         }
 
         player_y = player_y_new;

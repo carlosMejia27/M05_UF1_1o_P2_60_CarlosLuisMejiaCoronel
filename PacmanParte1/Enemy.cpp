@@ -47,8 +47,16 @@ void Enemy::Draw()
 
 }
 
+void Enemy::PoweUpPicked()
+{
+
+	power_countdown = TimeManager::getInstance().time+powerup_countdown_time;
+}
+
 Enemy::ENEMY_STATE Enemy::Update(Map* _map, COORD _player)
 {
+	//power_countdown += TimeManager::getInstance().deltaTime; que tarda cada fotograma
+	
 	RandomDirection();
 	COORD newPosition = position;
 	newPosition.X += direction.X; // actualizo la posicion xy y
@@ -78,8 +86,24 @@ Enemy::ENEMY_STATE Enemy::Update(Map* _map, COORD _player)
 	position = newPosition;
 	if (position.X==_player.X && position.Y == _player.Y) /// hago que el fantasma aparesca al inicio
 	{
-		position = spawn;
-		state = ENEMY_STATE::ENEMY_KILLED;
+		if (power_countdown <= TimeManager::getInstance().time)
+		{
+			state = ENEMY_STATE::ENEMY_DEAD;
+		}
+		else
+		{
+			position = spawn;
+			state = ENEMY_STATE::ENEMY_KILLED;
+		}
+		
+	}
+	if (power_countdown<=TimeManager::getInstance().time)
+	{
+		foreground = foreground_attack;
+	}
+	else
+	{
+		foreground = oreground_powerUp;
 	}
 
 	return state;
