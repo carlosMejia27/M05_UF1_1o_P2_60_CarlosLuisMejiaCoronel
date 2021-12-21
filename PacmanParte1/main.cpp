@@ -177,4 +177,8 @@ void Draw()
         ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::GREEN);
         std::cout << "Has ganado!" << std::endl;
     }
+    std::cout << "fotogramas: " << TimeManager::getInstance().frameCount << std::endl;
+    std::cout << "Time: " << TimeManager::getInstance().time << std::endl;
+    std::cout << "DeltaTime: " << TimeManager::getInstance().deltaTime << std::endl;
+    TimeManager::getInstance().nexframe();
 }
