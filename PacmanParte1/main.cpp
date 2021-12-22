@@ -147,8 +147,7 @@ void Draw()
     {
         ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::RED);
         player.foreground = ConsoleUtils::CONSOLE_COLOR::BLACK;
-        std::cout << "Has Perdido!" << std::endl;
-        
+        std::cout << "Has Perdido!" << std::endl;   
     }
    // std::cout << "fotogramas: " << TimeManager::getInstance().frameCount << std::endl;
    // std::cout << "Time: " << TimeManager::getInstance().time << std::endl;
