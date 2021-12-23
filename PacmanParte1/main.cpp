@@ -23,16 +23,11 @@ void Draw();
 Map pacman_map = Map();
 std::vector<Enemy> enemigos;
 PLAYER player = PLAYER(pacman_map.spawn_player);
-//Enemy enemy1 = Enemy(pacman_map.spawn_enemy);//posicion exactaa
 USER_INPUTS input = USER_INPUTS::NONE;
 bool run = true;
 bool win = false;
-int vidas =3;
-
 int main()
 {
-  /*  TimeManager::getInstance().variable = 0;
-    std::cout << TimeManager::getInstance().variable;*/
     Setup();
     while (run)
     {
@@ -110,7 +105,7 @@ void Logic()
             break;
         case Enemy::ENEMY_DEAD:// me mataa
            // player
-            vidas--;
+            player.vidas--;
             player.position.X = pacman_map.spawn_player.X;
             player.position.Y = pacman_map.spawn_player.Y;
             break;
@@ -121,6 +116,7 @@ void Logic()
         if (pacman_map.points <= 0)
         {
             win = true;
+            
         }
     }
 }
@@ -143,15 +139,15 @@ void Draw()
         ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::GREEN);
         std::cout << "Has ganado!" << std::endl;
     }
-    if (vidas<=0)
+
+    if (player.vidas <= 0)
     {
-        ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::RED);
-        player.foreground = ConsoleUtils::CONSOLE_COLOR::BLACK;
-        std::cout << "Has Perdido!" << std::endl;   
+        player.kill();
     }
+    
    // std::cout << "fotogramas: " << TimeManager::getInstance().frameCount << std::endl;
-   // std::cout << "Time: " << TimeManager::getInstance().time << std::endl;
+    std::cout << "Time: " << TimeManager::getInstance().time << std::endl;
    // std::cout << "DeltaTime: " << TimeManager::getInstance().deltaTime << std::endl;
-    std::cout << "Tus Vidas son: " << vidas << std::endl;
+    std::cout << "Tus Vidas son: " << player.vidas << std::endl;
     TimeManager::getInstance().nexframe();
 }
