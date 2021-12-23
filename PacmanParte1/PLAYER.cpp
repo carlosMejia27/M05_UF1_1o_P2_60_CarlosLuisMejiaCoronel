@@ -76,7 +76,9 @@ void PLAYER::Draw()
 
 void PLAYER::kill()
 {
-
+    ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::RED);
+    foreground = ConsoleUtils::CONSOLE_COLOR::BLACK;
+    std::cout << "Has Perdido!" << std::endl;
 }
 
 

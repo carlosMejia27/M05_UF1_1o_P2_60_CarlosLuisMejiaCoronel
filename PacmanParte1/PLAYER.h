@@ -10,9 +10,9 @@ class PLAYER
 	private:
 	COORD spawn;
 	COORD direction;
-	char character = 'O';
-	//ConsoleUtils::CONSOLE_COLOR  foreground = ConsoleUtils::CONSOLE_COLOR::YELLOW; // o
-	ConsoleUtils::CONSOLE_COLOR  background = ConsoleUtils::CONSOLE_COLOR::BLACK; // fondo
+	 const char character = 'O';
+	 const ConsoleUtils::CONSOLE_COLOR  background = ConsoleUtils::CONSOLE_COLOR::BLACK; // fondo
+	 ConsoleUtils::CONSOLE_COLOR  foreground = ConsoleUtils::CONSOLE_COLOR::YELLOW; // o
 
 public:
 
@@ -22,6 +22,6 @@ public:
 	void kill();
 	int points = 0;
 	COORD position;
-	ConsoleUtils::CONSOLE_COLOR  foreground = ConsoleUtils::CONSOLE_COLOR::YELLOW; // o
+	int vidas = 3;
 };
 
